@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Movie Theatre with A-Frame</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+</head>
+
+<body>
+    <a-scene>
+        <a-sky color="#111"></a-sky>
+        <a-plane rotation="-90 0 0" width="30" height="30" color="#555"></a-plane>
+
+        <a-plane geometry="primitive: plane; height: 10; width: 18;" material="src: movie.mp4; shader: flat;"
+            position="0 5 -10" rotation="-15 0 0"></a-plane>
+
+
+        <a-entity geometry="primitive: box; height: 1; width: 1.5; depth: 1.5;"
+            material="color: #888; metalness: 0.2; roughness: 0.8;" position="0 0 0" rotation="0 0 0" class="seat"
+            reservation-status="available"></a-entity>
+
+
+        <a-entity geometry="primitive: box; height: 1; width: 1.5; depth: 1.5;"
+            material="color: #888; metalness: 0.2; roughness: 0.8;" position="0 0 0" rotation="0 0 0" class="seat"
+            reservation-status="available"></a-entity>
+    </a-scene>
+    <script>
+        AFRAME.registerComponent('seat', {
+            init: function () {
+                this.el.addEventListener('click', function (evt) {
+                    var status = evt.target.getAttribute('reservation-status');
+                    if (status === 'available') {
+                        evt.target.setAttribute('reservation-status', 'reserved');
+                        evt.target.setAttribute('material',
+                            'color: #E01B6A; metalness: 0.2; roughness: 0.8;');
+                    } else {
+                        evt.target.setAttribute('reservation-status', 'available');
+                        evt.target.setAttribute('material',
+                            'color: #888; metalness: 0.2; roughness: 0.8;');
+                    }
+                });
+            }
+        });
+
+    </script>
+</body>
+
+</html>
